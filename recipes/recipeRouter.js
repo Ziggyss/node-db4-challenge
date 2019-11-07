@@ -1,50 +1,48 @@
-const express = require('express');
+const express = require("express");
 
-const Recipes = require('./recipe-model.js');
+const Recipes = require("./recipe-model.js");
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   Recipes.getRecipes()
-  .then(recipes => {
-    res.json(recipes);
-  })
-  .catch(err => {
-    res.status(500).json({ message: 'Failed to get recipes' });
-  });
+    .then(recipes => {
+      res.json(recipes);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get recipes" });
+    });
 });
 
-// router.get('/:id', (req, res) => {
-//   const { id } = req.params;
+router.get("/:id/shopping", (req, res) => {
+  const { id } = req.params;
 
-//   Schemes.findById(id)
-//   .then(scheme => {
-//     if (scheme) {
-//       res.json(scheme);
-//     } else {
-//       res.status(404).json({ message: 'Could not find scheme with given id.' })
-//     }
-//   })
-//   .catch(err => {
-//     res.status(500).json({ message: 'Failed to get schemes' });
-//   });
-// });
+  Recipes.getShoppingList(id)
+    .then(list => {
+      if (list) {
+        res.json(list);
+      } else {
+        res
+          .status(404)
+          .json({ message: "Could not find recipe with given id." });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get recipes" });
+    });
+});
 
-// router.get('/:id/steps', (req, res) => {
-//   const { id } = req.params;
+router.get("/:id/steps", (req, res) => {
+  const { id } = req.params;
 
-//   Schemes.findSteps(id)
-//   .then(steps => {
-//     if (steps.length) {
-//       res.json(steps);
-//     } else {
-//       res.status(404).json({ message: 'Could not find steps for given scheme' })
-//     }
-//   })
-//   .catch(err => {
-//     res.status(500).json({ message: 'Failed to get steps' });
-//   });
-// });
+  Recipes.getInstructions(id)
+    .then(steps => {
+      res.status(200).json(steps);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get steps" });
+    });
+});
 
 // router.post('/', (req, res) => {
 //   const schemeData = req.body;
@@ -60,7 +58,7 @@ router.get('/', (req, res) => {
 
 // router.post('/:id/steps', (req, res) => {
 //   const stepData = req.body;
-//   const { id } = req.params; 
+//   const { id } = req.params;
 
 //   Schemes.findById(id)
 //   .then(scheme => {
