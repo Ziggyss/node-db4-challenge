@@ -17,7 +17,7 @@ exports.up = function(knex) {
     .createTable("instructions", tbl => {
       tbl.increments();
       tbl
-        .text("instruction", 128)
+        .text("instruction")
         .unique()
         .notNullable();
     })
@@ -27,7 +27,7 @@ exports.up = function(knex) {
         .integer("recipe_id")
         .notNullable()
         .references("id")
-        .inTable("recipes");
+        .inTable("recipe_names");
       tbl
         .integer("ingredient_id")
         .notNullable()
@@ -44,7 +44,7 @@ exports.up = function(knex) {
         .integer("recipe_id")
         .notNullable()
         .references("id")
-        .inTable("recipes");
+        .inTable("recipe_names");
       tbl
         .integer("step_id")
         .notNullable()
