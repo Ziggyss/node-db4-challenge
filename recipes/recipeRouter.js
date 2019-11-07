@@ -44,6 +44,23 @@ router.get("/:id/instructions", (req, res) => {
     });
 });
 
+router.get("/ingredients/:id/recipes", (req, res) => {
+  const { id } = req.params;
+
+  Recipes.getRecipesByIngredient(id)
+    .then(list => {
+      if (list) {
+        res.status(200).json(list);
+      } else {
+        res
+          .status(404)
+          .json({ message: "Could not find recipe with given id." });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get recipes" });
+    });
+});
 // router.post('/', (req, res) => {
 //   const schemeData = req.body;
 
