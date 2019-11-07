@@ -19,13 +19,14 @@ router.get("/:id/shopping", (req, res) => {
 
   Recipes.getShoppingList(id)
     .then(list => {
-      if (list) {
-        res.json(list);
-      } else {
-        res
-          .status(404)
-          .json({ message: "Could not find recipe with given id." });
-      }
+      res.json(list)
+      // if (list) {
+      //   res.json(list);
+      // } else {
+      //   res
+      //     .status(404)
+      //     .json({ message: "Could not find recipe with given id." });
+      // }
     })
     .catch(err => {
       res.status(500).json({ message: "Failed to get recipes" });
