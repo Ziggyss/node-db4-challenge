@@ -14,26 +14,25 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id/shopping", (req, res) => {
+router.get("/:id/shoppingList", (req, res) => {
   const { id } = req.params;
 
   Recipes.getShoppingList(id)
     .then(list => {
-      res.json(list)
-      // if (list) {
-      //   res.json(list);
-      // } else {
-      //   res
-      //     .status(404)
-      //     .json({ message: "Could not find recipe with given id." });
-      // }
+      if (list) {
+        res.status(200).json(list);
+      } else {
+        res
+          .status(404)
+          .json({ message: "Could not find recipe with given id." });
+      }
     })
     .catch(err => {
       res.status(500).json({ message: "Failed to get recipes" });
     });
 });
 
-router.get("/:id/steps", (req, res) => {
+router.get("/:id/instructions", (req, res) => {
   const { id } = req.params;
 
   Recipes.getInstructions(id)
