@@ -5,7 +5,7 @@ const Recipes = require('./recipe-model.js');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  Recipes.find()
+  Recipes.getRecipes()
   .then(recipes => {
     res.json(recipes);
   })

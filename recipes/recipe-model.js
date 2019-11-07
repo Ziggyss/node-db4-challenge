@@ -1,16 +1,16 @@
 const db = require("../data/db-config");
 
 module.exports = {
-  find,
-  findShoppingList,
-  findSteps
+  getRecipes,
+  getShoppingList,
+  getInstructions
 };
 
-function find() {
-  return db("recipes");
+function getRecipes() {
+  return db("recipe_names");
 }
 
-function findShoppingList(id) {
+function getShoppingList(id) {
   return db("shopping_list")
     .join(
       "ingredients",
@@ -26,7 +26,7 @@ function findShoppingList(id) {
     .where();
 }
 
-function findSteps(id) {
+function getInstructions(id) {
   return db("recipe_steps")
     .join(
       "recipe_names",
